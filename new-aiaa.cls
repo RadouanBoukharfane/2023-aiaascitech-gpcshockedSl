@@ -88,6 +88,7 @@
 
 \RequirePackage[tableposition=top]{caption}
 \renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Tab.}
 \captionsetup*{font=bf,labelsep=quad}
 \renewcommand{\arraystretch}{1.2}
 

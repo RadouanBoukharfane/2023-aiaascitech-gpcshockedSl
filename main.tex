@@ -1,22 +1,18 @@
 \documentclass[conf]{new-aiaa}
-
-
+%=============================================================
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage[version=4]{mhchem}
 \usepackage{siunitx}
-\usepackage{longtable,tabularx}
 \usepackage{bm}
 \usepackage{scalerel}
 \usepackage{tikz,pgfplots,pgfplotstable}
 \usepackage{subcaption}
-\usepackage{overpic}
+\usepackage[abs]{overpic}
 \usepackage{mathtools}
-
-\DeclarePairedDelimiter\autobracket{(}{)}
+%=============================================================
 \linespread{1.4}
-
-
+%=============================================================
 \DeclareMathAlphabet{\mathesstixfrak}{U}{esstixfrak}{m}{n}
 \DeclareMathAlphabet{\mathboondoxfrak}{U}{BOONDOX-frak}{m}{n}
 \newcommand{\ie}{\emph{i.e~}}
@@ -28,14 +24,7 @@
 \newcommand*{\pd}[3][]{\frac{\partial^{#1}#2}{\partial{#3}^{#1}}} % partial derivative
 \newcommand*{\reyno}[1]{\bar{#1}}
 \newcommand*{\favre}[1]{\widetilde{#1}}
-\newcommand{\ud}{\mathrm{d}} % normal derivative
-\newcommand{\mywidtha}{0.42\textwidth}
-\newcommand{\mywidthb}{0.41\textwidth}
-\newcommand{\mywidthc}{0.44\textwidth}
-\newcommand{\mywidthd}{0.37\textwidth}
-\newcommand{\mywidthtwoa}{0.368\textwidth}
-\newcommand{\mywidthbanormal}{0.39\textwidth}
-\newcommand{\mywidthdanormal}{0.36\textwidth}
+\newcommand{\ud}{\mathrm{d}} 
 \newcommand{\uD}{\mathrm{D}}
 \newcommand*{\dwz}{\delta_{\omega,0}}
 \newcommand*{\dw}{\delta_{\omega}}
@@ -59,12 +48,15 @@
 \setlength\LTleft{0pt} 
 %=============================================================
 \author{
-S. Baaziz
+Sarah Baaziz
 \footnote{Graduate Student, sarah.baaziz@um6p.ma}}
 \affil{University of Lille, Lille Fluid Mechanics Laboratory, France}
-\author{R. Boukharfane
+\author{Nabil El Moçayd
+\footnote{Assistant professor, nabil.elmocayd@um6p.ma}}
+\affil{Mohammed VI Polytechnic University (UM6P), IWRI Group, Benguerir, Morocco}
+\author{Radouan Boukharfane
 \footnote{Research \& Education fellow, radouan.boukharfane@um6p.ma, AIAA Member}}
-\affil{Mohammed VI Polytechnic University (UM6P), MSDA group, Benguerir, Morocco}
+\affil{Mohammed VI Polytechnic University (UM6P), MSDA Group, Benguerir, Morocco}
 \begin{document}
 %=============================================================
 \date\today
@@ -72,11 +64,15 @@ S. Baaziz
 \maketitle
 %=============================================================
 \begin{abstract}
-The present paper focus on the stochastic response of a three-dimensional shock wave impingement on a spatially evolving mixing layer to parametric uncertainties.
+The present paper focus on the stochastic response of a two-dimensional shock wave impingement on a spatially evolving mixing layer to parametric uncertainties.
 %
 Both the oblique shock angle and the convective Mach number are considered as random parameters and the generalized Polynomial Chaos (gPC) theory is coupled with standard deterministic numerical simulations through a spectral collocation projection methodology.
 %
-The results allow for a better understanding of the flow sensitivity to such uncertainties and underline the coupling process between the stochastic parameters.
+In this framework, the two input parameters investigated are considered as random variables with a given probability distribution over the range of investigation prescribed.
+%
+The uncertainty is then propagated through the computational model to statistically quantify their effect on the results.
+%
+This study allows for a better understanding of the flow sensitivity to such uncertainties and underline the coupling process between the stochastic parameters.
 %
 Some results of direct numerical simulations of the multicomponent, compressible, reactive Navier-Stokes equations are reported here for the particular case of a two-dimensional mixing layer. Special emphasis is placed on the effects associated with heat release.
 \end{abstract}
@@ -114,7 +110,7 @@ The analysis is conducted in the light of DNS results.
 %=============================================================
 \section{Description of the numerical solver}
 %=============================================================
-The unsteady, three-dimensional, compressible Navier-Stokes equations are considered for a multi-species reactive gas mixture:
+The unsteady, compressible Navier-Stokes equations are considered for a multi-species reactive gas mixture:
 \begin{equation}\label{eq:eqs_originelles_ch_i}
 \pd{\addim{\rho}}{\addim{t}}+
 \pd{\addim{\rho} \addim{u}_j}{\addim{x}_j}=0 ,
@@ -143,13 +139,26 @@ i \in \left[ 1,3 \right] ,
 where $\addim{\tau}_{ij}=2\addim{\mu}\left(\addim{S}_{ij} - \delta_{ij} \addim{S}_{kk} / 3 \right)$ and $\addim{S}_{ij}=\left(\partial{\addim{u}_i}/\partial{\addim{x}_j}+
 \partial{\addim{u}_j}/\partial{\addim{x}_i}\right)/2$. $\addim{\rho}\addim{e}_t=\addim{\rho}{\addim{u}_i\addim{u}_i}/{2}+ \addim{\rho}\sum^{\nspc}_{\alpha=1} \addim{h}_\alpha Y_\alpha - \addim{p}$ and $\addim{h}_\alpha \left(\addim{T}_1\right) =  \Delta {\addim{h}}^0_{f\alpha} + \int^{\addim{T}_1}_{\addim{T}_0}  \addim{c}_{p\alpha} \left(\addim{T}\right) \mathrm{d} \addim{T}$. The pressure of the mixture is given by $\addim{p}=\addim{\rho}{\Rcal}\addim{T}/{\Wcal}$, with $\Wcal^{-1}=\sum^{\nspc}_{\alpha=1} {Y_\alpha}/{\Wcal_\alpha}$. $\addim{q}_j=-\addim{\lambda} \partial{\addim{T}}/\partial{\addim{x}_j} + \addim{\rho} \sum^{\nspc}_{\alpha=1}  \addim{h}_\alpha Y_\alpha \addim{V}_{\alpha j} $ and $Y_{\alpha}\addim{V}_{\alpha j} = Y_{\alpha}   \sum^{\nspc}_{\beta=1} \addim{D}_{\beta} ({\Wcal_{\beta}}/{\Wcal}) \partial{X_{\beta}}/\partial{\addim{x}_j} - \addim{D}_{\alpha} ({\Wcal_{\alpha}}/{\Wcal}) \partial{X_{\alpha}}/\partial{\addim{x}_j} $.
 %
-This system of conservative equations is based on the following set of independent variables: the density $\addim{\rho}$, the momentum $\addim{\rho} \addim{u}_i$, the mass fraction of the $\nspc$ species $\addim{\rho} Y_{\alpha}$ and the total energy $\addim{\rho} \addim{e}_t$. Each species behaves as a thermally perfect gas with its thermodynamic properties determined from the JANAF databases~\cite{sta1971}. The viscosity $\addim{\mu}$ and thermal conductivity $\addim{\lambda}$ depend on the temperature of the mixture as well as its composition. The mixture diffusion coefficients $\addim{D}_{\alpha}$ depend on the temperature and pressure of the mixture but the Dufour and Soret effects are not taken into account. The mass production terms $\addim{\dot{\omega}}_\alpha$ are derived from a set of chemical reaction equations which are expressed in terms of an Arrhenius temperature dependence form, making possible the use of detailed chemical kinetic mechanisms.
+This system of conservative equations is based on the following set of independent variables: the density $\addim{\rho}$, the momentum $\addim{\rho} \addim{u}_i$, the mass fraction of the $\nspc$ species $\addim{\rho} Y_{\alpha}$ and the total energy $\addim{\rho} \addim{e}_t$.
+%
+Each species behaves as a thermally perfect gas with its thermodynamic properties determined from the JANAF databases~\cite{stull1971janaf}.
+%
+The viscosity $\addim{\mu}$ and thermal conductivity $\addim{\lambda}$ depend on the temperature of the mixture as well as its composition.
+%
+The mixture diffusion coefficients $\addim{D}_{\alpha}$ depend on the temperature and pressure of the mixture but the Dufour and Soret effects are not taken into account.
+%
+The mass production terms $\addim{\dot{\omega}}_\alpha$ are derived from a set of chemical reaction equations which are expressed in terms of an Arrhenius temperature dependence form, making possible the use of detailed chemical kinetic mechanisms.
 
 The treatment of the advective terms in the transport equations relies on a solution-adaptive finite-difference method whereby different numerical schemes are applied for shocks and broadband turbulence.
 %
 Narrow regions around shock waves are treated with a nonlinear upwinding seventh-order accurate weighted essentially non-oscillatory (WENO-Z) scheme of \citet{don2013accuracy} with Roe flux splitting, whereas the underlying seventh-order upwind discretization is used elsewhere by disabling the nonlinear weights.
 %
-At each time step, shocks are detected based on Ducros \cite{ducros1999large} shock sensor which is set to one if $\partial_i u_i>0.7\sqrt{\pars{\partial_i u_i}^2+\Omega^2}$, where $\Omega^2$ is a low-pass-filtered vorticity magnitude.
+At each time step, shocks are detected based on Ducros \cite{ducros1999large} shock sensor which is activated if
+\begin{equation}
+\partial_i u_i>0.7\sqrt{\pars{\partial_i u_i}^2+\Omega^2},
+\end{equation}
+%
+where $\Omega^2$ is a low-pass-filtered vorticity magnitude.
 %
 The viscous and molecular diffusion fluxes are discretized using eighth-order centered finite difference formulas.
 %
@@ -158,17 +167,18 @@ Time integration is carried out by means of a third-order total variation dimini
 The time step is set such that the acoustic Courant-Friedrichs-Lewy (CFL) number does not exceed $0.5$.
 %
 The enthalpies and the specific heat capacities of each species are expressed as polynomial functions of temperature using the \texttt{JANAF} tables \cite{stull1971janaf}. %
-The above mentioned transport coefficients, \textit{i.e.}, $\kappa$, $\mu$, $\widetilde{\mathcal{D}}_{\alpha,\beta}$ and $\tilde{\chi}_{\beta}$, which are functions of the temperature and the mixture, are evaluated using the general purpose \texttt{FORTRAN} library \texttt{EGLIB} \cite{ern_eglib_2004}.
+The above mentioned transport coefficients, \textit{i.e.}, $\kappa$, $\mu$, $\widetilde{\mathcal{D}}_{\alpha,\beta}$ and $\tilde{\chi}_{\beta}$, which are functions of the temperature and the mixture, are evaluated using the general purpose \texttt{FORTRAN} library \texttt{EGLIB} \cite{ern2004eglib}.
 %
 The supersonic streams of hydrogen/air consists of nine species ($\mathrm{H_2}$, $\mathrm{O_2}$, $\mathrm{H}$, $\mathrm{O}$, $\mathrm{OH}$, $\mathrm{HO_2}$, $\mathrm{H_2O_2}$, $\mathrm{H_2O}$, $\mathrm{N_2}$).
 %
 To speed up the simulations of the inert cases, the intermediate species are neglected and the mass fraction of $\mathrm{N_2}$ is slightly modified to guarantee mass conservation.
 %
 A detailed verification of the solver may be found in \cite{boukharfane2018contribution}.
-
+%
 %=============================================================
 \section{Generalized polynomial chaos}
 %=============================================================
+%
 The main features of the generalized polynomial chaos approach are briefly recalled here; for more details we refer to \citet{ghanem2003stochastic} and \citet{le2010spectral}.
 %
 In the last years, this stochastic approach has been applied to turbulent flow analysis with satisfying results \cite{lucor2007sensitivity}. 
@@ -177,11 +187,7 @@ Define a {\it probability space} ($\Omega$,$\mathcal{A}$,$\mathcal{P}$) where $\
 %
 Being $\omega$ an element of the event space, we define a random field $X(\omega)$ such that it maps the probability space into a function space $V$, $X:\Omega \rightarrow V$.
 %
-In the following we will consider second-order random fields, \textit{i.e.}, those satisfying the relation:
-\begin{equation}
- {\bf E}(X,X) < + \infty,
-\end{equation} 
-where ${\bf E}$ denotes the expectation of a random variable.
+In the following we will consider second-order random fields, \textit{i.e.}, those satisfying the relation ${\bf E}(X,X) < + \infty$, where ${\bf E}$ denotes the expectation of a random variable.
 %
 In this context, gPC is a tool allowing second-order random fields to be represented through a set of random variables ${\bf \xi}(\omega)$.
 %
@@ -206,22 +212,20 @@ X(\omega)=\sum_{k=0}^{\infty}a_k\Phi_k({\bf \xi}(\omega)),
 in which there is a one-to-one correspondence between $a_{i_1 \, i_2 \, \cdots \, I_n}$ and $a_k$ and between $B_n({ \xi_{i_1}, \, \xi_{i_2}, \, \cdots \,, \, \xi_{i_n}})$ and $\Phi_k({\bf \xi})$
 The polynomial expansion is truncated to a finite limit and the orthogonality of the polynomials is set through the relation
 %
-\begin{equation}
-<\Phi_i \Phi_j>=<\Phi_i^2> \delta_{ij},
-\end{equation}
+$\langle\Phi_i \Phi_j\rangle=\langle\Phi_i^2\rangle \delta_{ij}$,
 %
-where $<\cdot,\cdot>$ denotes an ensemble average.
+where $\langle\cdot,\cdot\rangle$ denotes an ensemble average.
 %
 This inner product is defined over the measure $W(\xi)$ of the random variables as follows:
 %
 \begin{equation}
-<f(\xi)g(\xi)>= \int_{\omega \in \Omega} f(\xi)g(\xi)dP(\omega)= \int f(\xi)g(\xi) W(\xi) d \xi.
+\langle f(\xi)g(\xi)\rangle= \int_{\omega \in \Omega} f(\xi)g(\xi)dP(\omega)= \int f(\xi)g(\xi) W(\xi) d \xi.
 \end{equation}
 %
 Thanks to the orthogonality of the polynomial basis, each coefficient of the Galerkin projection \eqref{LucorEq} can be recovered through the following definition:
 %
 \begin{equation}
-a_k = \frac{<X,\Phi_k>}{<\Phi_{k}^2>}= \frac{1}{<\Phi_{k}^2>}\int_{\omega \in \Omega} X \Phi_k \rho({\bf \xi}) d({\bf \xi}),
+a_k = \frac{\langle X,\Phi_k\rangle }{\langle \Phi_{k}^2\rangle}= \frac{1}{\langle \Phi_{k}^2\rangle}\int_{\omega \in \Omega} X \Phi_k \rho({\bf \xi}) d({\bf \xi}),
 \end{equation}
 %
 where each inner product involves a multidimensional integral over the support range of the weighting function.
@@ -242,10 +246,122 @@ The gPC application is herein used in its non-intrusive approach, \textit{i.e.},
 %
 The number of points to discretize each random variable space is chosen in order to recover converged integrals when computing the polynomial coefficients.
 %
-The polynomial expansion being truncated to the third order, $4$ points for each random variable are sufficient to compute the coefficients $a_k$.
+\textbf{The polynomial expansion being truncated to the third order, $5$ points for each random variable are sufficient to compute the coefficients $a_k$.}
 %
-The accuracy of the method has been investigated by checking that the contribution of polynomials of order higher than three remains very low for all the considered quantities. 
+%=============================================================
+\section{Problem statement and computational setup}
+\label{sec:physical_model_and_numerical_properties}
+%=============================================================
+The upper stream corresponds to the fuel inlet, \textit{i.e.}, a mixture containing hydrogen, and the bottom inlet stream to vitiated air.
+%
+% Both two- and three-dimensional computations are performed. 
+%
+A typical sketch of the corresponding computational geometry is provided in Fig.~\ref{tab:config-mel-couche-cis-1} and the main parameters relevant to the present numerical simulation are given in Tab.~\ref{tab:config-mel-couche-cis-1}.
+%
+Assuming equal free-stream specific heat capacity ratios, the convective Mach number may be evaluated from $M_c=(\ce{U}_1-\ce{U}_2)/(a_1+a_2)$, where $a_1$ and $a_2$ denotes  the sonic speeds of streams 1 (oxidizer inlet stream) and 2 (fuel inlet stream) respectively.
+%
+The values of the velocity at the inlets are $\ce{U}_1=1634$ m/s at bottom (oxidizer stream) and $\ce{U}_2$ (fuel stream) is determined once the value of $M_c$ is imposed.
+%
+\begin{figure}[!ht]
+\centering
+\begin{overpic}[scale=0.75]{./figs/figure1}
+\put(92,8){\scriptsize $\beta$}
+\put(52,33){\scriptsize $\ce{U}_1$}
+\put(44,90){\scriptsize $\ce{U}_2$}
+\put(88,33){\scriptsize $\ce{U}_1$}
+\put(81,90){\scriptsize $\ce{U}_2$}
+\put(107,95){\scriptsize $x_2$}
+\put(278,58){\scriptsize $x_1$}
+\put(140,68){\vector(1,-1){10}}
+\put(120,70){\tiny Mixing layer}
+\put(235,32){\vector(1,1){10}}
+\put(210,28){\tiny Transmitted shock}
+\put(122,4){\vector(-1,0){10}}
+\put(123,4){\tiny Shock generator}
+\put(210,10){\vector(-1,1){10}}
+\put(185,5){\tiny Computational domain}
+\put(152,30){\vector(-1,1){10}}
+\put(130,26){\tiny Incident shock}
+\put(176,80){\vector(1,-1){10}}
+\put(150,82){\tiny Reflected shock}
+\end{overpic}
+\caption{Sketch of the two-dimensional shock--mixing layer interaction geometry.}
+\label{fig:fig1}
+\end{figure}
+%
+\begin{table}[!ht]
+\centering \footnotesize
+\begin{tabular}{| c | c | c | c | c | c |}
+\hline\hline
+Simulation no. & $\beta$ ($^\circ$) & 	Mach convective $M_c$ (-) & Fuel $U_2$ (m/s) & Oxidizer $U_1$ (m/s) & ${Re_{\delta_{\omega}}}$ (-)\\ \hline\hline
+1	& 30.47	& 0.32	& 1194.44	& 1634	& 425.79 \\
+2	& 30.47	& 0.39	& 1093.02	& 1634	& 524.03 \\
+3	& 30.47	& 0.50	& 944.52	& 1634	& 667.88 \\
+4	& 30.47	& 0.61	& 796.01	& 1634	& 811.73 \\
+5	& 30.47	& 0.68	& 694.59	& 1634	& 909.98 \\
+6	& 32.31	& 0.32	& 1194.44	& 1634	& 425.79 \\
+7	& 32.31	& 0.39	& 1093.02	& 1634	& 524.03 \\
+8	& 32.31	& 0.50	& 944.52	& 1634	& 667.88 \\
+9	& 32.31	& 0.61	& 796.01	& 1634	& 811.73 \\
+10	& 32.31	& 0.68	& 694.59	& 1634	& 909.98 \\
+11	& 35.00	& 0.32	& 1194.44	& 1634	& 425.79 \\
+12	& 35.00	& 0.39	& 1093.02	& 1634	& 524.03 \\
+13	& 35.00	& 0.50	& 944.52	& 1634	& 667.88 \\
+14	& 35.00	& 0.61	& 796.01	& 1634	& 811.73 \\
+15	& 35.00	& 0.68	& 694.59	& 1634	& 909.98 \\
+16	& 37.69	& 0.32	& 1194.44	& 1634	& 425.79 \\
+17	& 37.69	& 0.39	& 1093.02	& 1634	& 524.03 \\
+18	& 37.69	& 0.50	& 944.52	& 1634	& 667.88 \\
+19	& 37.69	& 0.61	& 796.01	& 1634	& 811.73 \\
+20	& 37.69	& 0.68	& 694.59	& 1634	& 909.98 \\
+21	& 39.53	& 0.32	& 1194.44	& 1634	& 425.79 \\
+22	& 39.53	& 0.39	& 1093.02	& 1634	& 524.03 \\
+23	& 39.53	& 0.50	& 944.52	& 1634	& 667.88 \\
+24	& 39.53	& 0.61	& 796.01	& 1634	& 811.73 \\
+25	& 39.53	& 0.68	& 694.59	& 1634	& 909.98 \\
+\hline \hline
+\end{tabular}
+\caption{Database of DNS simulations used in the present analysis. Results from
+simulations 1-25 are used to reconstruct the response surfaces of the stochastic quantities
+analysed, by the use of a non-intrusive gPC approach.}
+\label{tab:config-mel-couche-cis-1}
+\end{table}
+%
+The mixing layer flow is impinged by an oblique shock wave that is issued from the oxidizer inlet stream at the bottom boundary.
+%
+The geometrical parameters relevant to the present set of numerical simulations are $L_{x_1}=280$ and $L_{x_2}=130$, which denote the computational domain lengths in each direction normalized by the initial vorticity thickness $\dwz=1.44\times 10^{-4}$ m, and $N_{x_1}=1640$ and $N_{x_2}=750$, which are the corresponding numbers of grid points.
+%
+The flow is initialized with a hyperbolic tangent profile for the streamwise velocity component, while the other velocity components are set at zero. Species mass fractions and density are also set according to the following general expression:
+%
+\begin{equation}
+\varphi(x_1,x_2,x_3)= \frac{\varphi_1+\varphi_2}{2}+\frac{\varphi_1-\varphi_2}{2}\tanh\left(\frac{2x_2}{\dwz}\right),
+\end{equation}
+%
+where $\varphi$ denotes any of the flow variables mentioned above (i.e., species mass fraction or streamwise velocity component).
+%
+The value of the Reynolds number ${Re_{\delta_{\omega}}}$ is based on the initial vorticity thickness and inlet velocity difference $\Delta \ce{U}=\ce{U}_1-\ce{U}_2$. 
+%
+One of the fundamental statistical quantities that characterizes the mixing layer development is its normalized growth rate~\cite{ramshaw2000simple}.
+%
+Although the definition of this growth rate is not unique, one standard expression relies on the vorticity thickness definition~\cite{pantano2003mixing}:
+%
+\begin{equation}
+\delta_{\omega}(x_1)=\frac{\ce{U}_1-\ce{U}_2}{\left. {\partial\widetilde{u}_1}/{\partial x_2}\right\vert_{\max}}
+\end{equation}
+%
+Dirichlet boundary conditions are applied at the two supersonic inlets, perfectly non-reflecting boundary conditions are set at the outflow.
+%
+A slip boundary condition is imposed at the top, while the bottom boundary condition is set by using Rankine-Hugoniot relations, generalized for a multicomponent mixture~\cite{mitchell1982general}.
+%
+In order to trigger flow transition, a slight white noise fluctuation is superimposed to the transverse velocity component along the line $(x_1,x_2)=(4\dwz,0)$.
+%
+The value of the {CFL} number is set to $0.75$.
+%
+Reactive flow simulations are conducted with the detailed mechanism of O'Conaire et al.~\cite{o2004comprehensive}. It consists of nine chemical species (\ce{H2}, \ce{O2}, \ce{H2O}, \ce{H}, \ce{O}, \ce{OH}, \ce{HO2}, \ce{H2O2}, and \ce{N2}) and 21 elementary reaction steps.
+%
+The  concentrations of these species at the inlet have been determined from equilibrium conditions so as to reach favorable self-ignition conditions within the extension of the computational domain. 
 
+Throughout this manuscript, the Reynolds and Favre averages of any quantity $\varphi$ are denoted by $\overline{\varphi}$ and $\widetilde{\varphi}$, while the corresponding statistical fluctuations are denoted by single and double primes, i.e., $\varphi'$ and $\varphi''$,  respectively. Averaging is performed over {the direction of statistical homogeneity and time $t$}. 
 
 %=============================================================
 \bibliography{main}
