@@ -45,15 +45,17 @@
 %=============================================================
 \title{A gPC-based approach to uncertain interaction of oblique shocks and supersonic mixing layers}
 %=============================================================
-\setlength\LTleft{0pt} 
+% \setlength\LTleft{0pt} 
 %=============================================================
 \author{
 Sarah Baaziz
 \footnote{Graduate Student, sarah.baaziz@um6p.ma}}
-\affil{University of Lille, Lille Fluid Mechanics Laboratory, France}
+\affil{University of Lille, Lille Fluid Mechanics Laboratory, Lille, France}
 \author{Nabil El Moçayd
 \footnote{Assistant professor, nabil.elmocayd@um6p.ma}}
 \affil{Mohammed VI Polytechnic University (UM6P), IWRI Group, Benguerir, Morocco}
+\author{Imad Kissami
+\footnote{Research \& Education fellow, radouan.boukharfane@um6p.ma, AIAA Member}}
 \author{Radouan Boukharfane
 \footnote{Research \& Education fellow, radouan.boukharfane@um6p.ma, AIAA Member}}
 \affil{Mohammed VI Polytechnic University (UM6P), MSDA Group, Benguerir, Morocco}
@@ -246,7 +248,7 @@ The gPC application is herein used in its non-intrusive approach, \textit{i.e.},
 %
 The number of points to discretize each random variable space is chosen in order to recover converged integrals when computing the polynomial coefficients.
 %
-\textbf{The polynomial expansion being truncated to the third order, $5$ points for each random variable are sufficient to compute the coefficients $a_k$.}
+The polynomial expansion being truncated to the third order, $5$ points for each random variable are sufficient to compute the coefficients $a_k$.
 %
 %=============================================================
 \section{Problem statement and computational setup}
@@ -254,7 +256,6 @@ The number of points to discretize each random variable space is chosen in order
 %=============================================================
 The upper stream corresponds to the fuel inlet, \textit{i.e.}, a mixture containing hydrogen, and the bottom inlet stream to vitiated air.
 %
-% Both two- and three-dimensional computations are performed. 
 %
 A typical sketch of the corresponding computational geometry is provided in Fig.~\ref{tab:config-mel-couche-cis-1} and the main parameters relevant to the present numerical simulation are given in Tab.~\ref{tab:config-mel-couche-cis-1}.
 %
@@ -264,7 +265,7 @@ The values of the velocity at the inlets are $\ce{U}_1=1634$ m/s at bottom (oxid
 %
 \begin{figure}[!ht]
 \centering
-\begin{overpic}[scale=0.75]{./figs/figure1}
+\begin{overpic}[scale=0.75]{./figs/schema-config.pdf}
 \put(92,8){\scriptsize $\beta$}
 \put(52,33){\scriptsize $\ce{U}_1$}
 \put(44,90){\scriptsize $\ce{U}_2$}
@@ -294,31 +295,31 @@ The values of the velocity at the inlets are $\ce{U}_1=1634$ m/s at bottom (oxid
 \begin{tabular}{| c | c | c | c | c | c |}
 \hline\hline
 Simulation no. & $\beta$ ($^\circ$) & 	Mach convective $M_c$ (-) & Fuel $U_2$ (m/s) & Oxidizer $U_1$ (m/s) & ${Re_{\delta_{\omega}}}$ (-)\\ \hline\hline
-1	& 30.47	& 0.32	& 1194.44	& 1634	& 425.79 \\
-2	& 30.47	& 0.39	& 1093.02	& 1634	& 524.03 \\
-3	& 30.47	& 0.50	& 944.52	& 1634	& 667.88 \\
-4	& 30.47	& 0.61	& 796.01	& 1634	& 811.73 \\
-5	& 30.47	& 0.68	& 694.59	& 1634	& 909.98 \\
-6	& 32.31	& 0.32	& 1194.44	& 1634	& 425.79 \\
-7	& 32.31	& 0.39	& 1093.02	& 1634	& 524.03 \\
-8	& 32.31	& 0.50	& 944.52	& 1634	& 667.88 \\
-9	& 32.31	& 0.61	& 796.01	& 1634	& 811.73 \\
-10	& 32.31	& 0.68	& 694.59	& 1634	& 909.98 \\
-11	& 35.00	& 0.32	& 1194.44	& 1634	& 425.79 \\
-12	& 35.00	& 0.39	& 1093.02	& 1634	& 524.03 \\
-13	& 35.00	& 0.50	& 944.52	& 1634	& 667.88 \\
-14	& 35.00	& 0.61	& 796.01	& 1634	& 811.73 \\
-15	& 35.00	& 0.68	& 694.59	& 1634	& 909.98 \\
-16	& 37.69	& 0.32	& 1194.44	& 1634	& 425.79 \\
-17	& 37.69	& 0.39	& 1093.02	& 1634	& 524.03 \\
-18	& 37.69	& 0.50	& 944.52	& 1634	& 667.88 \\
-19	& 37.69	& 0.61	& 796.01	& 1634	& 811.73 \\
-20	& 37.69	& 0.68	& 694.59	& 1634	& 909.98 \\
-21	& 39.53	& 0.32	& 1194.44	& 1634	& 425.79 \\
-22	& 39.53	& 0.39	& 1093.02	& 1634	& 524.03 \\
-23	& 39.53	& 0.50	& 944.52	& 1634	& 667.88 \\
-24	& 39.53	& 0.61	& 796.01	& 1634	& 811.73 \\
-25	& 39.53	& 0.68	& 694.59	& 1634	& 909.98 \\
+1&34.24&0.45&1009.59&1634.00&602.35\\
+2&34.24&0.46&994.37&1634.00&617.04\\
+3&34.24&0.48&972.09&1634.00&638.52\\
+4&34.24&0.50&949.82&1634.00&660.01\\
+5&34.24&0.51&934.60&1634.00&674.69\\
+6&35.15&0.45&1009.59&1634.00&602.35\\
+7&35.15&0.46&994.37&1634.00&617.04\\
+8&35.15&0.48&972.09&1634.00&638.52\\
+9&35.15&0.50&949.82&1634.00&660.01\\
+10&35.15&0.51&934.60&1634.00&674.69\\
+11&36.50&0.45&1009.59&1634.00&602.35\\
+12&36.50&0.46&994.37&1634.00&617.04\\
+13&36.50&0.48&972.09&1634.00&638.52\\
+14&36.50&0.50&949.82&1634.00&660.01\\
+15&36.50&0.51&934.60&1634.00&674.69\\
+16&37.85&0.45&1009.59&1634.00&602.35\\
+17&37.85&0.46&994.37&1634.00&617.04\\
+18&37.85&0.48&972.09&1634.00&638.52\\
+19&37.85&0.50&949.82&1634.00&660.01\\
+20&37.85&0.51&934.60&1634.00&674.69\\
+21&38.77&0.45&1009.59&1634.00&602.35\\
+22&38.77&0.46&994.37&1634.00&617.04\\
+23&38.77&0.48&972.09&1634.00&638.52\\
+24&38.77&0.50&949.82&1634.00&660.01\\
+25&38.77&0.51&934.60&1634.00&674.69\\
 \hline \hline
 \end{tabular}
 \caption{Database of DNS simulations used in the present analysis. Results from
@@ -329,12 +330,12 @@ analysed, by the use of a non-intrusive gPC approach.}
 %
 The mixing layer flow is impinged by an oblique shock wave that is issued from the oxidizer inlet stream at the bottom boundary.
 %
-The geometrical parameters relevant to the present set of numerical simulations are $L_{x_1}=280$ and $L_{x_2}=130$, which denote the computational domain lengths in each direction normalized by the initial vorticity thickness $\dwz=1.44\times 10^{-4}$ m, and $N_{x_1}=1640$ and $N_{x_2}=750$, which are the corresponding numbers of grid points.
+The geometrical parameters relevant to the present set of numerical simulations are $L_{x_1}=280$ and $L_{x_2}=130$, which denote the computational domain lengths in each direction normalized by the initial vorticity thickness $\delta_{\omega}(x_1=0)=\dwz=1.44\times 10^{-4}$ m, and $N_{x_1}=2500$ and $N_{x_2}=900$, which are the corresponding numbers of grid points.
 %
 The flow is initialized with a hyperbolic tangent profile for the streamwise velocity component, while the other velocity components are set at zero. Species mass fractions and density are also set according to the following general expression:
 %
 \begin{equation}
-\varphi(x_1,x_2,x_3)= \frac{\varphi_1+\varphi_2}{2}+\frac{\varphi_1-\varphi_2}{2}\tanh\left(\frac{2x_2}{\dwz}\right),
+\varphi(x_1,x_2,x_3)= \frac{\varphi_1+\varphi_2}{2}+\frac{\varphi_1-\varphi_2}{2}\tanh\left(\frac{2x_2}{\delta_\omega(x_1=0)}\right),
 \end{equation}
 %
 where $\varphi$ denotes any of the flow variables mentioned above (i.e., species mass fraction or streamwise velocity component).
@@ -360,9 +361,193 @@ The value of the {CFL} number is set to $0.75$.
 Reactive flow simulations are conducted with the detailed mechanism of O'Conaire et al.~\cite{o2004comprehensive}. It consists of nine chemical species (\ce{H2}, \ce{O2}, \ce{H2O}, \ce{H}, \ce{O}, \ce{OH}, \ce{HO2}, \ce{H2O2}, and \ce{N2}) and 21 elementary reaction steps.
 %
 The  concentrations of these species at the inlet have been determined from equilibrium conditions so as to reach favorable self-ignition conditions within the extension of the computational domain. 
+%=============================================================
+\section{Analysis of computational results}
+\label{sec:results_and_discussion}
+%=============================================================
+Instantaneous flow visualizations are very revealing of some local features of the shear layer with respect to the influence of convective Mach number and the degree of oblique shock.
+%
+For instance, quantitative comparisons of the onset of the streamwise vortices formation can be obtained from the instantaneous fields of the local Mach number magnitude reported in Fig.~\ref{fig:fixedangle} .
+%
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-1-crop.png}
+\caption{Case \#1}
+\label{fig:mach1}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-1-crop.png}
+\caption{Case \#1}
+\label{fig:mach6}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-2-crop.png}
+\caption{Case \#2}
+\label{fig:mach2}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-6-crop.png}
+\caption{Case \#6}
+\label{fig:mach6}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-3-crop.png}
+\caption{Case \#3}
+\label{fig:mach3}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-11-crop.png}
+\caption{Case \#11}
+\label{fig:mach11}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-4-crop.png}
+\caption{Case \#4}
+\label{fig:mach4}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-16-crop.png}
+\caption{Case \#16}
+\label{fig:mach1}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-5-crop.png}
+\caption{Case \#5}
+\label{fig:mach5}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/mach-21-crop.png}
+\caption{Case \#21}
+\label{fig:mach21}
+\end{subfigure}
+\caption{Instantaneous field of the numerical local Mach number at $t\Delta U/\dwz= 100$ for (left panel) a fixed degree of oblique shock and for (right) fixed convective Mach number.}
+\label{fig:fixedangle}
+\end{figure}
+%
+In this left panel of this figure, it is remarkable that by increasing the convective Mach number of bulk viscosity, the normalized abscissa at which the vortex roll-up processes take place at approximately the same position.
+%
+The main observed difference is the position at the which the shear layer interacts with the reflected shock by the upper adiabatic wall. 
+%
+Moreover, the sensitivity of the growth rate with the respect to the convective Mach number does not exhibit noticeable difference.
+%
+However, as can be seen from the right panel of Fig.~\ref{fig:fixedangle}, the vortex structure as well the growth of the shear layer seems to be highly impacted by small perturbation of oblique shock wave. 
+%
+The vortex structures issued from the reflected shock interaction are indeed much more disorganized and elongated as the angle of oblique shock is intensified, and and the flow topology remains an ordered whole and the morphology of the vortices retains its coherence after the second interaction with the shock for lower values of $\beta$.
 
-Throughout this manuscript, the Reynolds and Favre averages of any quantity $\varphi$ are denoted by $\overline{\varphi}$ and $\widetilde{\varphi}$, while the corresponding statistical fluctuations are denoted by single and double primes, i.e., $\varphi'$ and $\varphi''$,  respectively. Averaging is performed over {the direction of statistical homogeneity and time $t$}. 
+In order to quantify the growth rate of the computer shear layer, a passive scalar $\xi$ is defined on the basis of conserved elemental (\textit{i.e.}, atomic) mass fractions~\cite{pierce2001progress}.
+%
+The mass fraction of chemical element $\gamma$, denoted $a_\gamma$, is readily deduced from the chemical species mass fractions
+%
+\begin{equation}
+a_{\gamma} = \sum_{\alpha=1}^{\nspc} \frac{Y_{\alpha} N_{\alpha,\gamma} A_{\gamma}}{W_{\alpha}} ,
+\end{equation}
+%
+where $A_{\gamma}$ is the atomic weight associated to element $\gamma$ and $N_{\alpha,\gamma}$ denotes the number of $\gamma$ atoms present in each molecule of chemical species $\alpha$. For a two-feeding inlet system such as the one considered here, the mixture fraction is then obtained by summing over all elemental mass fractions and normalizing the result
+%
+\begin{equation}
+\xi = \frac{\sum_{\gamma} |a_{\gamma} - a_{\gamma,\ce{O}}|}{\sum_{\gamma} |a_{\gamma,\ce{F}} - a_{\gamma,\ce{O}}|} ,
+\label{eq:mixture-variable}
+%
+\end{equation}
+%
+where $a_{\gamma,\ce{O}}$ and $a_{\gamma,\ce{F}}$ denote the mass fractions of atom $\gamma$ in the oxidizer and fuel inlet streams, respectively.
+%
+The spatial evolution of the shear layer thickness $\mathbb{T}_\mathrm{sl}$ is computed as follows
+%
+\begin{equation}
+\mathbb{T}_\mathrm{sl}=\widetilde{\xi_{0.95}}-\widetilde{\xi_{0.05}}
+\end{equation}
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.50\columnwidth]{figs/xievol.png}
+\caption{spatial evolution of the shear layer thickness $\mathbb{T}_\mathrm{sl}$.}
+\label{fig:tslsh}
+\end{figure}
+%
+The spatial evolution of all the cases is shown in Fig.~\ref{fig:tslsh}, which reveals that the interaction of the reflected shock wave with the mixing zone changes significantly the mixing layer growth rate with respect to the parameters $M_c$ and $\beta$.
+%
+For a fixed $\beta$, the thickness increases as $M_c$ goes higher. 
+%
+The same observation applies with a fixed $M_c$ and increasing value of $\beta$.
+%
 
+%
+\begin{figure}[!ht]
+\centering
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/meangpc.png}
+\caption{}
+\label{fig:mean1}
+\end{subfigure}
+\begin{subfigure}{.48\textwidth}
+\includegraphics[width=0.99\columnwidth]{figs/vargpc.png}
+\caption{}
+\label{fig:mvar1}
+\end{subfigure}
+\caption{$\mathbb{T}_\mathrm{sl}$ mean and (b) variance solution comparison between gPC and stochastic methods.} 
+\label{fig:tmeansol}
+\end{figure}
+%
+The stochastic analysis of $\mathbb{T}_\mathrm{sl}$ is used herein to quantify the effects associated with the variability of $M_c$ and $\beta$.
+%
+The analysis here is performed relying on the use of the gPC to reconstruct multiple response surfaces, considering a uniform $\texttt{PDF}$ for the input parameters $M_c$ and $\beta$.
+%
+The comparison obtained from the gPC and the stochastic methods is highlighted in Fig.~\ref{fig:mean1}.
+%
+The stochastic method over-estimates the mean value of the gPC method in the fully turbulent region, which indicates that the gPC was not able to capture the mean field.
+%
+This means that, under the current operational point, the gPC method requires more polynomial degree, and therefore more computational efforts should be deployed to obtain its convergence.
+%
+The uncertainty depicted by the parameters is more likely to explain the non-convergence of the gPC.
+The variance of $\mathbb{T}_\mathrm{sl}$ with respect to its mean value in the parameter space is provided in Fig.~\ref{fig:mvar1}.
+%
+As expected, the variance increases as the fully developed turbulent region is reached.
+%
+Unlike the mean value, the values of variance computed by means of the gPC is well compared to the stochastic method, even though the convergence of gPC is not obtained.
+%
+It is noteworthy that an estimation of the sensitivity will allow to rank the parameters depending on their sensitivity. 
+%
+
+%
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.49\columnwidth]{figs/sobol.png}
+\caption{The Sobol indices for $\mathbb{T}_\mathrm{sl}$} 
+\label{fig:tmeansobol}
+\end{figure}
+%
+The analysis of the Sobol indices for  $\mathbb{T}_\mathrm{sl}$ is depicted in Fig.~\ref{fig:tmeansobol}.
+%
+One can note that the uncertainty is totally controlled by angle of the oblique shock wave, which 
+indicates that that there is no coupling between the effects of $\beta$ and $M_c$, resulting in a  response dictated mainly by the quantity $\beta$ in the parameter space.
+%
+The Total Sobol’ Indices show the existence of an uncertainty resulting from the interaction of $\beta$ and $M_c$, but the interaction does not impact the overall sensitivity analysis.
+%
+As a conclusion, one can limit uncertainty quantification on the uncertainty of $\beta$. 
+%=============================================================
+\section{Conclusion}
+%=============================================================
+In this study, a sensitivity analysis of DNS of the shocked turbulent spatially evolving mixing layer has been performed. The effects of the convective Mach number $M_c$ and the angle of oblique shock wave have been investigated.
+%
+The choice of the parameters is performed with the aim to improve the physical understanding of the considered flow configuration.
+%
+This naturally opens up interesting prospects for flow control, and reliable comparison between experiments, simulations and turbulence modelling.
+%
+A database of 25 two-dimensional DNS has been used to perform the analysis, which encompassed observation of structural features as well as stochastic characterization of time-averaged quantities.
+%
+The latter has been developed via response surface reconstruction using gPC.
+%
+The response surface reconstruction allows for an accurate quantification of the effects of each parameter, as well as of the total variation rate in the parametric range investigated.
+%
+The main finding of this work is that for uncertainty quantification could be limited to the study of the uncertainty of $\beta$.
+%
+Future work envisions the investigation of the effects of $\beta$-angle in combination with different inlet perturbations, in particular for the initial development of the mixing layer. The impact of variations of the Reynolds number could also be addressed. 
+%=========================================================
+\paragraph{Acknowledgements}
+%=========================================================
+The authors gratefully acknowledge support and computing resources from the African Supercomputing Center (ASCC) at UM6P (Morocco).
 %=============================================================
 \bibliography{main}
 %=============================================================
